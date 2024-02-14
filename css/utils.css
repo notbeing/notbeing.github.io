@@ -3,6 +3,7 @@ body, html {
     margin: 0; /* Изменено на 0 для предотвращения появления полос прокрутки */
     overflow: hidden;
     background-color: black;
+    animation: fadeEffect 1.5s ease-in;
     
     /* Удалено z-index для body и html */
 }
@@ -23,6 +24,16 @@ button {
     right: 20px;
     padding: 10px 20px;
     font-size: 16px;
+}
+
+@keyframes fadeEffect {
+    
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }
 
 #container {
