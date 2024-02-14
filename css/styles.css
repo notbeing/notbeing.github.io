@@ -125,7 +125,7 @@ canvas {
     position: absolute;
     opacity: 80%;
     top: 55%; /* Устанавливаем начальную позицию */
-    left: 43%; /* Можете настроить это значение для точного позиционирования */
+    left: 40%; /* Можете настроить это значение для точного позиционирования */
     font-family: "Akzidenz-Grotesk Pro Med Ext", sans-serif;
     font-size: 45px;
     transform: translate(-50%, -50%);
@@ -136,7 +136,7 @@ canvas {
     position: absolute;
     opacity: 80%;
     top: 55%; /* Теперь устанавливаем одинаковое значение */
-    left: 57%; /* Можете настроить это значение для точного позиционирования */
+    left: 60%; /* Можете настроить это значение для точного позиционирования */
     font-family: "Akzidenz-Grotesk Pro Med Ext", sans-serif;
     font-size: 45px;
     transform: translate(-50%, -50%);
@@ -144,21 +144,16 @@ canvas {
 
 #videoContainer {
     position: absolute;
+    opacity: 0.5;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     z-index: -2;
+    -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
+    filter: grayscale(20%);
 }
 
-#noiseCanvas {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-}
 
 #backgroundVideo {
     width: 100%;
@@ -169,36 +164,21 @@ canvas {
 }
 
 #loveText {
-    display: none;
+    position: relative;
     color: white;
     font-size: 2em;
     position: absolute;
-    top: 50%;
+    top: 39%;
     left: 50%;
+    font-size: 20px;
+    font-family: "Akzidenz-Grotesk Pro Med Ext", sans-serif;
+    opacity: 0.30;
+    /* background-image: linear-gradient(to right, white, rgb(102, 102, 102), white); */
     transform: translate(-50%, -50%);
-}
-
-#particles-js {
-    position: absolute;
-    width: 100%;
-    height: 100%;
 }
 
 #noButton:hover {
     position: absolute;
     top: randomValue;
     left: randomValue;
-}
-
-
-#dontbehappy {
-    font-size: 48px; /* или любой другой размер */
-    font-weight: bold; /* для лучшей видимости градиента */
-    text-align: center; /* если нужно центрировать текст */
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent; /* делает текст прозрачным, показывая только фон */
-    font-family: "Akzidenz-Grotesk Pro Med Ext", sans-serif;
-    opacity: 0.75;
-    background-image: linear-gradient(to right, white, rgb(124, 124, 124), white); /* Пример градиента с тремя цветами */
 }

@@ -1,0 +1,127 @@
+body, html {
+    height: 100%;
+    margin: 0; /* Изменено на 0 для предотвращения появления полос прокрутки */
+    overflow: hidden;
+    background-color: black;
+    
+    /* Удалено z-index для body и html */
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+button {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+}
+
+#container {
+    position: relative;
+}
+
+#content {
+    max-width: 80%;
+    margin: 0 auto;
+    position: relative; /* Добавляем относительное позиционирование для #content */
+}
+
+
+#dontbehappy, #accolade, #changeTextButton {
+    position: relative;
+    z-index: 1; /* Устанавливаем выше партиклов */
+    /* Остальные стили... */
+}
+
+#dontbehappy {
+    position: relative;
+    font-size: 64px; /* или любой другой размер */
+    font-weight: bold; /* для лучшей видимости градиента */
+    text-align: center; /* если нужно центрировать текст */
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent; /* делает текст прозрачным, показывая только фон */
+    font-family: "Akzidenz-Grotesk Pro Med Ext", sans-serif;
+    opacity: 0.75;
+    background-image: linear-gradient(to right, white, rgb(124, 124, 124), white); /* Пример градиента с тремя цветами */
+    padding: 10px;
+}
+
+#happy {
+    position: relative;
+    font-size: 32px; /* или любой другой размер */
+    font-weight: bold; /* для лучшей видимости градиента */
+    text-align: center; /* если нужно центрировать текст */
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent; /* делает текст прозрачным, показывая только фон */
+    font-family: "Akzidenz-Grotesk Pro Med Ext", sans-serif;
+    opacity: 0.2;
+    background-image: linear-gradient(to right, white, rgb(124, 124, 124), white); /* Пример градиента с тремя цветами */
+    padding: 10px;
+}
+
+#accolade {
+    position: relative;
+    overflow: hidden;
+    width: auto;
+    height: auto;
+    font-size: 24px; /* или любой другой размер */
+    font-weight: bold; /* для лучшей видимости градиента */
+    text-align: center; /* если нужно центрировать текст */
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent; /* делает текст прозрачным, показывая только фон */
+    font-family: "Akzidenz-Grotesk Pro Med Ext", sans-serif;
+    opacity: 0.75;
+    background-image: linear-gradient(to right, white, rgb(102, 102, 102), white); /* Пример градиента с тремя цветами */
+    padding: 10px;
+}
+
+#particles-js {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0; /* Устанавливаем на нулевом уровне, ниже содержимого */
+}
+
+@keyframes slideOut {
+    from {
+        transform: translateX(0);
+        opacity: 0.75;
+    }
+    to {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 0.75;
+    }
+}
+
+.slide-out {
+    animation: slideOut 0.5s ease-in-out forwards;
+}
+
+.slide-in {
+    animation: slideIn 0.5s ease-in-out forwards;
+}
