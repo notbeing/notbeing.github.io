@@ -191,7 +191,7 @@ canvas {
 }
 
 
-#end {
+#dontbehappy {
     font-size: 48px; /* или любой другой размер */
     font-weight: bold; /* для лучшей видимости градиента */
     text-align: center; /* если нужно центрировать текст */
