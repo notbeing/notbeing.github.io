@@ -1,0 +1,351 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>обнови страничку</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --accent: #1da1f2;
+        --g1: #fdfcff;
+        --g2: #e8f1ff;
+        --g3: #ffe8f8;
+        --card-bg: rgba(255, 255, 255, 0.6);
+        --blur: 22px;
+        --radius: 16px;
+        --shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+      }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        font-family: Inter, system-ui, sans-serif;
+      }
+      html,
+      body {
+        height: 100%;
+      }
+      body {
+        background: linear-gradient(
+          120deg,
+          var(--g1) 0%,
+          var(--g2) 33%,
+          var(--g3) 66%,
+          var(--g1) 100%
+        );
+        background-size: 500% 500%;
+        animation: bg 30s ease infinite;
+        line-height: 1.55;
+        color: #0f1419;
+        overflow-x: hidden;
+        cursor: none;
+      }
+      @keyframes bg {
+        0% {
+          background-position: 0 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0 50%;
+        }
+      }
+      a {
+        color: var(--accent);
+      }
+      a:hover {
+        text-decoration: none;
+      }
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        z-index: 1;
+        background: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence baseFrequency='.9'/></filter><rect width='220' height='220' filter='url(%23n)' opacity='.6'/></svg>")
+          repeat;
+        mix-blend-mode: overlay;
+        opacity: 0.04;
+        animation: n 0.7s steps(2) infinite;
+      }
+      @keyframes n {
+        to {
+          transform: translate(-50%, -50%);
+        }
+      }
+      header {
+        max-width: 640px;
+        margin: 72px auto 48px;
+        padding: 0 24px;
+        text-align: center;
+        opacity: 0;
+        transform: translateY(40px);
+        transition: 0.8s;
+      }
+      h1 {
+        font-size: 2.4rem;
+        font-weight: 600;
+        margin-bottom: 8px;
+      }
+      p.lead {
+        color: #536471;
+        margin-bottom: 4px;
+      }
+      p.timer {
+        color: #8899a6;
+        font-size: 0.9rem;
+      }
+      .grid {
+        display: grid;
+        gap: 24px;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        max-width: 860px;
+        margin: 0 auto 72px;
+        padding: 0 24px;
+        opacity: 0;
+        transform: translateY(40px);
+        transition: 0.8s;
+      }
+      .card {
+        position: relative;
+        background: var(--card-bg);
+        backdrop-filter: blur(var(--blur));
+        border-radius: var(--radius);
+        overflow: hidden;
+        box-shadow: var(--shadow);
+        transform-style: preserve-3d;
+        perspective: 800px;
+        transition: box-shadow 0.25s;
+      }
+      .card img {
+        display: block;
+        width: 100%;
+        pointer-events: none;
+      }
+      .card:hover {
+        box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
+      }
+      .player {
+        border: none;
+        width: 100%;
+        height: 152px;
+        border-radius: var(--radius);
+        box-shadow: var(--shadow);
+      }
+      #shield {
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        cursor: none;
+        z-index: 9998;
+      }
+      .cursor {
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 34px;
+        height: 34px;
+        pointer-events: none;
+        transform: translate(-50%, -50%);
+        z-index: 9999;
+        will-change: transform;
+      }
+      .cursor svg {
+        width: 100%;
+        height: 100%;
+      }
+      .cursor::after {
+        content: "";
+        position: absolute;
+        inset: -15px;
+        border-radius: 50%;
+        background: radial-gradient(
+          circle,
+          #ffb4d8 0%,
+          rgba(255, 180, 216, 0.55) 40%,
+          transparent 70%
+        );
+        animation: p 2.2s ease infinite;
+      }
+      @keyframes p {
+        0% {
+          transform: scale(0.8);
+        }
+        50% {
+          transform: scale(1.06);
+        }
+        100% {
+          transform: scale(0.8);
+        }
+      }
+      .petal {
+        position: fixed;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: rgba(255, 214, 230, 0.7);
+        pointer-events: none;
+        animation: f 6s linear forwards;
+      }
+      @keyframes f {
+        0% {
+          transform: translate(var(--x), var(--y)) scale(1);
+          opacity: 1;
+        }
+        100% {
+          transform: translate(calc(var(--x) + 0px), calc(var(--y) - 160px))
+            scale(0.45);
+          opacity: 0;
+        }
+      }
+      .card:hover img {
+        pointer-events: none;
+      }
+      .visible {
+        opacity: 1 !important;
+        transform: translateY(0) !important;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="shield"></div>
+    <div class="cursor" id="cur">
+      <svg viewBox="0 0 32 32" fill="none">
+        <circle cx="16" cy="6" r="6" fill="#FFC8DD" />
+        <circle cx="26" cy="16" r="6" fill="#FFC8DD" />
+        <circle cx="16" cy="26" r="6" fill="#FFC8DD" />
+        <circle cx="6" cy="16" r="6" fill="#FFC8DD" />
+        <circle cx="16" cy="16" r="5" fill="#FFAFCC" />
+      </svg>
+    </div>
+    <header>
+      <h1>приветик, вик!!</h1>
+      <p class="lead" id="q"></p>
+      <p class="timer" id="d"></p>
+    </header>
+    <section class="grid">
+      <div class="card">
+        <a href="https://playvalorant.com" target="_blank" rel="noopener"
+          ><img src="https://avatars.mds.yandex.net/i?id=f510c03bc860fec95cac8c566a92476a_l-9028838-images-thumbs&n=13" alt="Valorant"
+        /></a>
+      </div>
+      <div class="card">
+        <a
+          href="https://shikimori.one/animes/9770-hello-kitty-no-stump-village?ysclid=mcmrcebq1984106548"
+          target="_blank"
+          rel="noopener"
+          ><img
+            src="https://i.pinimg.com/736x/0b/40/f7/0b40f71dba7ec59488815607506ad903.jpg"
+            alt="Cinnamoroll"
+        /></a>
+      </div>
+      <div class="card">
+        <a
+          href="https://open.spotify.com/artist/5gZusS8FE1A9IvnqGkeHzv"
+          target="_blank"
+          rel="noopener"
+          ><img
+            src="https://avatars.mds.yandex.net/i?id=d7539300d86bd60d0f69107d8a8aba95_l-5292126-images-thumbs&n=13"
+            alt="$uicideboy$"
+        /></a>
+      </div>
+    </section>
+    <section class="grid" style="grid-template-columns: 1fr">
+      <iframe style="border-radius:12px" src="https://open.spotify.com/embed/artist/1VPmR4DJC1PlOtd0IADAO0?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+    </section>
+    </footer>
+    <script>
+      const io = new IntersectionObserver(
+        (e) =>
+          e.forEach(
+            (x) => x.isIntersecting && x.target.classList.add("visible")
+          ),
+        { threshold: 0.25 }
+      );
+      document.querySelectorAll("header,.grid").forEach((el) => io.observe(el));
+      const phrases = [
+        "ты умничка",
+        "я тобой безумно горжусь",
+        "пожалуйста кушай чаще",
+        "что бы не произошло, ты заслуживаешь самого лучшего",
+        "ты всегда мотивировала делать что-то ради тебя, просто потому что ты - этого заслуживаешь",
+        "ты как солнышко, которое мя всегда радовало",
+        "многое нас разделило, но я всё равно восхищаюсь тобой",
+        "прости за всё, пожалуйста.",
+        "улыбайся чаще!! у тебя же такая красивая улыбка",
+        "мяу мяум мяум яу",
+        "я бы обнял тебя, не смотря ни на что",
+        "твоя доброта светит ярче сакуры в цвете дня",
+        "мир стал лучше, когда ты появилась",
+        "ты сможешь всё, если дашь себе чуточку времени",
+        "пускай каждое утро будет мягким, как твой плед",
+        "я всегда готов слушать тебя, даже самые-самые длинные истории",
+        "хочется чтобы все твои мечты сбылись",
+        "я рядышком"
+      ];
+      document.getElementById("q").innerText =
+        phrases[(Math.random() * phrases.length) | 0];
+      const start = "2023-07-27";
+      document.getElementById("d").innerText =
+        `прикинь, мы в отношениях были уже почти ${Math.floor((Date.now() - new Date(start)) / 864e5)} дн..\nкрасивая циф2рка`;
+      const cur = document.getElementById("cur");
+      let a = 0;
+      document.addEventListener("mousemove", (e) => {
+        cur.style.left = e.clientX + "px";
+        cur.style.top = e.clientY + "px";
+      });
+      (function rot() {
+        a = (a + 1.2) % 360;
+        cur.style.transform = `translate(-50%,-50%) rotate(${a}deg)`;
+        requestAnimationFrame(rot);
+      })();
+      setInterval(() => {
+        const p = document.createElement("span");
+        p.className = "petal";
+        const x = Math.random() * innerWidth,
+          y = innerHeight + 20;
+        p.style.setProperty("--x", x + "px");
+        p.style.setProperty("--y", y + "px");
+        p.style.transform = `translate(${x}px,${y}px) scale(${0.8 + Math.random() * 0.4})`;
+        document.body.appendChild(p);
+        p.addEventListener("animationend", () => p.remove());
+      }, 1800);
+      document.querySelectorAll(".card").forEach((c) => {
+        c.addEventListener("mousemove", (e) => {
+          const r = c.getBoundingClientRect(),
+            x = (e.clientX - r.left) / r.width - 0.5,
+            y = (e.clientY - r.top) / r.height - 0.5;
+          c.style.transform = `rotateX(${y * 8}deg) rotateY(${x * -8}deg)`;
+        });
+        c.addEventListener(
+          "mouseleave",
+          () => (c.style.transform = "rotateX(0) rotateY(0)")
+        );
+      });
+      function confetti() {
+        const col = ["#ffafcc", "#ffc8dd", "#bde0fe", "#caffbf", "#fbf8cc"];
+        for (let i = 0; i < 42; i++) {
+          const d = document.createElement("div");
+          d.style.cssText = `position:fixed;top:${innerHeight / 2}px;left:${innerWidth / 2}px;width:8px;height:8px;pointer-events:none;background:${col[i % col.length]};opacity:.9;border-radius:50%;z-index:9000;transform:translate(-50%,-50%) scale(${Math.random() + 0.5});animation:c 1200ms ease-out forwards`;
+          d.style.setProperty("--tx", Math.random() * 400 - 200 + "px");
+          d.style.setProperty("--ty", Math.random() * 400 - 200 + "px");
+          document.body.appendChild(d);
+          d.addEventListener("animationend", () => d.remove());
+        }
+      }
+      const st = document.createElement("style");
+      st.textContent =
+        "@keyframes c{to{transform:translate(var(--tx),var(--ty)) scale(.3);opacity:0}}";
+      document.head.appendChild(st);
+      document.addEventListener("keydown", (e) => {
+        const k = e.key.toLowerCase();
+        if (["x", "ч", "х"].includes(k)) confetti();
+      });
+    </script>
+  </body>
+</html>
